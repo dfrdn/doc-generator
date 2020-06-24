@@ -66,6 +66,42 @@
     "terminationNotice": {
       "type": "string",
       "title": "Period to notify termination"
+    },
+    "duties": {
+      "type": "array",
+      "title": "Functions, duties, and Responsibilities of the Employee",
+      "x-itemTitle": "duty",
+      "items": {
+        "type": "object",
+        "required": ["duty"],
+        "properties": {
+          "duty": {
+            "type": "string",
+            "title": "Insert function, duty, or responsibility...",
+            "x-display": "textarea"
+          }
+        }
+      }
+    },
+    "regularizationStandards": {
+      "type": "array",
+      "title": "Regularization Standards",
+      "x-itemTitle": "standard",
+      "items": {
+        "type": "object",
+        "required": ["standard"],
+        "properties": {
+          "standard": {
+            "type": "string",
+            "title": "Insert regularization standard...",
+            "x-display": "textarea"
+          }
+        }
+      }
+    },
+    "salary": {
+      "type": "number",
+      "title": "Gross monthly salary"
     }
   }
 }
