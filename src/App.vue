@@ -2,14 +2,7 @@
   <v-app>
     <NavBar />
     <v-main>
-      <v-container class="fill-height" fluid>
-        <v-row align="center" justify="center">
-          <v-col>
-            <Form />
-          </v-col>
-        </v-row>
-      </v-container>
-      <GenerateButton />
+      <router-view></router-view>
     </v-main>
     <v-footer app>
       <span>&copy; 2020</span>
@@ -19,15 +12,11 @@
 
 <script>
 import NavBar from '@/components/NavBar.vue'
-import GenerateButton from '@/components/GenerateButton.vue'
-import Form from '@/components/Form.vue'
 
 export default {
   name: 'App',
   components: {
-    NavBar,
-    GenerateButton,
-    Form
+    NavBar
   }
 }
 </script>

@@ -1,48 +1,71 @@
 {
   "type": "object",
   "properties": {
-    "stringProp": {
+    "executionDate": {
       "type": "string",
-      "title": "Employer Name",
-      "description": "This description is used as a help message."
+      "title": "Date of Execution",
+      "format": "date"
     },
-    "stringTextareaProp": {
-      "type": "string",
-      "title": "I'm a string in a textarea",
-      "x-display": "textarea"
-    },
-    "numberProp": {
-      "type": "number",
-      "title": "I'm a number"
-    },
-    "integerProp": {
-      "type": "integer",
-      "title": "I'm an integer"
-    },
-    "integerSliderProp": {
-      "type": "integer",
-      "title": "I'm an integer in a slider",
-      "x-display": "slider",
-      "minimum": 0,
-      "maximum": 5
-    },
-    "booleanProp": {
+    "isJuridical": {
       "type": "boolean",
-      "title": "I'm a boolean"
+      "title": "Juridical Employer?"
     },
-    "stringArrayProp": {
-      "type": "array",
-      "title": "I'm an array of strings",
-      "items": {
-        "type": "string"
-      }
+    "employerName": {
+      "type": "string",
+      "title": "Name of Employer"
     },
-    "integerArrayProp": {
+    "employerAddress": {
+      "type": "string",
+      "title": "Employer Address"
+    },
+    "employerRepresentative": {
+      "type": "string",
+      "title": "Name of Employer'sRepresentative"
+    },
+    "employeeName": {
+      "type": "string",
+      "title": "Name of Employee"
+    },
+    "employeeNationality": {
+      "type": "string",
+      "title": "Nationality"
+    },
+    "employeeAddress": {
+      "type": "string",
+      "title": "Employee Address"
+    },
+    "position": {
+      "type": "string",
+      "title": "Position"
+    },
+    "startDate": {
+      "type": "string",
+      "title": "Start Date",
+      "format": "date"
+    },
+    "probationDuration": {
+      "type": "string",
+      "title": "Duration of Probation (Leave blank if not probationary)"
+    },
+    "lockinDuration": {
+      "type": "string",
+      "title": "Duration of Lock-in (Leave blank if no lock-in period)"
+    },
+    "placeOfWork": {
+      "type": "string",
+      "title": "Place of Work (Leave blank if same as employer office)"
+    },
+    "isExclusive": {
       "type": "array",
-      "title": "I'm an array of integers",
-      "items": {
-        "type": "integer"
-      }
+      "title": "Exclusive"
+    },
+    "isConfidential": {
+      "type": "string",
+      "title": "Duration of non-compete (Leave blank if no non-compete)"
+    },
+    "terminationNotice": {
+      "type": "string",
+      "title": "Period to notify termination"
     }
   }
 }
