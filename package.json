@@ -8,8 +8,8 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.4.4",
     "@koumoul/vjsf": "^1.10.2",
-    "@koumoul/vuetify-jsonschema-form": "^0.36.4",
     "@types/file-saver": "^2.0.1",
     "@types/pizzip": "^3.0.1",
     "core-js": "^3.6.5",

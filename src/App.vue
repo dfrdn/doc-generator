@@ -4,7 +4,7 @@
     <v-main>
       <v-container class="fill-height" fluid>
         <v-row align="center" justify="center">
-          <v-col class="shrink">
+          <v-col>
             <Form />
           </v-col>
         </v-row>
@@ -19,20 +19,14 @@
 
 <script>
 import NavBar from '@/components/NavBar.vue'
-import GenerateButton from '@/components/GenerateButton'
-// import Employment from '@/views/Employment.vue'
-import Form from '@/components/Form'
+import GenerateButton from '@/components/GenerateButton.vue'
+import Form from '@/components/Form.vue'
+
 export default {
-  props: {
-    source: String
-  },
-  data: () => ({
-    drawer: null
-  }),
+  name: 'App',
   components: {
     NavBar,
     GenerateButton,
-    // Employment,
     Form
   }
 }

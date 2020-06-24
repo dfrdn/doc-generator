@@ -18,55 +18,9 @@ const model = {
   booleanProp: true,
   stringArrayProp: ['item 1', 'item 2']
 }
+import employment from '@/schema/employmentContract.json'
 const options = {}
-const schema = {
-  type: 'object',
-  properties: {
-    stringProp: {
-      type: 'string',
-      title: "I'm a string",
-      description: 'This description is used as a help message.'
-    },
-    stringTextareaProp: {
-      type: 'string',
-      title: "I'm a string in a textarea",
-      'x-display': 'textarea'
-    },
-    numberProp: {
-      type: 'number',
-      title: "I'm a number"
-    },
-    integerProp: {
-      type: 'integer',
-      title: "I'm an integer"
-    },
-    integerSliderProp: {
-      type: 'integer',
-      title: "I'm an integer in a slider",
-      'x-display': 'slider',
-      minimum: 0,
-      maximum: 5
-    },
-    booleanProp: {
-      type: 'boolean',
-      title: "I'm a boolean"
-    },
-    stringArrayProp: {
-      type: 'array',
-      title: "I'm an array of strings",
-      items: {
-        type: 'string'
-      }
-    },
-    integerArrayProp: {
-      type: 'array',
-      title: "I'm an array of integers",
-      items: {
-        type: 'integer'
-      }
-    }
-  }
-}
+const schema = employment
 
 export default Vue.extend({
   name: 'Employment',
