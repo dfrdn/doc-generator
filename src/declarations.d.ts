@@ -1,3 +1,5 @@
 declare module 'docxtemplater'
 declare module 'pizzip/utils/index.js'
 declare module '@koumoul/vjsf'
+declare module 'angular-expressions'
+declare module 'lodash/merge'

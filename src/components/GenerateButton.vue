@@ -15,30 +15,102 @@ import Docxtemplater from 'docxtemplater'
 import PizZip from 'pizzip'
 import PizZipUtils from 'pizzip/utils/index.js'
 import { saveAs } from 'file-saver'
+import * as firebase from 'firebase/app'
+import 'firebase/storage'
+import expressions from 'angular-expressions'
+import merge from 'lodash/merge'
 
-function loadFile(url: string, callback: (e: Error, c: string) => void) {
-  PizZipUtils.getBinaryContent(url, callback)
+expressions.filters.lower = (input: string) => {
+  if (!input) {
+    return input
+  }
+  return input.toLowerCase()
+}
+
+function angularParser(tag: string) {
+  if (tag === '.') {
+    return {
+      get: function(s: string) {
+        return s
+      }
+    }
+  }
+  const expr = expressions.compile(
+    tag.replace(/(’|‘)/g, "'").replace(/(“|”)/g, '"')
+  )
+  return {
+    get: function(
+      scope: Record<string, never>,
+      context: Record<string, never>
+    ) {
+      let obj = {}
+      const scopeList = context['scopeList']
+      const num = context['num']
+      for (let i = 0, len = num + 1; i < len; i++) {
+        obj = merge(obj, scopeList[i])
+      }
+      console.log('scope: ' + JSON.stringify(scope))
+      console.log('context: ' + JSON.stringify(context))
+      return expr(scope, obj)
+    }
+  }
+}
+
+function loadFile(
+  url: string,
+  onSuccess: (c: string) => void,
+  onError: (e: Error) => void
+) {
+  PizZipUtils.getBinaryContent(url, (e: Error, c: string) => {
+    if (e) {
+      console.log(e)
+      onError(e)
+    }
+    onSuccess(c)
+  })
 }
 
 export default Vue.extend({
   name: 'GenerateButton',
+  props: {
+    template: {
+      type: String,
+      required: true
+    },
+    info: {
+      type: Object,
+      required: true
+    }
+  },
   methods: {
     renderDoc() {
-      loadFile('https://docxtemplater.com/tag-example.docx', function(
-        error: Error,
-        content
-      ) {
-        if (error) {
-          throw error
-        }
-        const zip = new PizZip(content)
-        const doc = new Docxtemplater().loadZip(zip)
-        doc.setData({})
+      const storage = firebase.storage()
+      const storageRef = storage.ref(this.template)
+      let doc
+
+      const onError = (e: Error) => {
+        throw e
+      }
+
+      const onSuccess = (c: string) => {
+        const zip = new PizZip(c)
+        doc = new Docxtemplater(zip, { parser: angularParser })
+        doc.setData(this.info)
         try {
-          // render the document (replace all occurences of {first_name} by John, {last_name} by Doe, ...)
           doc.render()
         } catch (error) {
-          // Handle error
+          //   key: Error | string,
+          //   value: Error | string
+          // ) => {
+          //   if (value instanceof Error) {
+          //     return Object.getOwnPropertyNames(value).reduce((error, key) => {
+          //       error[key] = value[key]
+          //       return error
+          //     }, {})
+          //   }
+          //   return value
+          // }
+          // console.log(JSON.stringify({ error: error }, replaceErrors))
         }
         const out = doc.getZip().generate({
           type: 'blob',
@@ -46,7 +118,9 @@ export default Vue.extend({
             'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
         }) //Output the document using Data-URI
         saveAs(out, 'output.docx')
-      })
+      }
+
+      storageRef.getDownloadURL().then(url => loadFile(url, onSuccess, onError))
     }
   }
 })

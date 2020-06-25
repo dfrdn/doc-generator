@@ -1,34 +1,44 @@
 {
   "type": "object",
+  "required": [
+    "employerName",
+    "employerAddress",
+    "employeeName",
+    "employeeNationality",
+    "employeeAddress",
+    "position",
+    "startDate",
+    "terminationNotice",
+    "executionDate"
+  ],
   "properties": {
-    "executionDate": {
-      "type": "string",
-      "title": "Date of Execution",
-      "format": "date"
-    },
     "isJuridical": {
       "type": "boolean",
       "title": "Juridical Employer?"
     },
     "employerName": {
       "type": "string",
-      "title": "Name of Employer"
+      "title": "Name of Employer",
+      "x-class": "md6"
+    },
+    "employerRepresentative": {
+      "type": "string",
+      "title": "Name of Employer's Representative",
+      "x-class": "md6"
     },
     "employerAddress": {
       "type": "string",
       "title": "Employer Address"
     },
-    "employerRepresentative": {
-      "type": "string",
-      "title": "Name of Employer'sRepresentative"
-    },
     "employeeName": {
       "type": "string",
-      "title": "Name of Employee"
+      "title": "Name of Employee",
+      "x-class": "md6"
     },
     "employeeNationality": {
       "type": "string",
-      "title": "Nationality"
+      "title": "Nationality",
+      "x-class": "md6"
     },
     "employeeAddress": {
       "type": "string",
@@ -36,36 +46,53 @@
     },
     "position": {
       "type": "string",
-      "title": "Position"
+      "title": "Position",
+      "x-class": "md6"
+    },
+    "salary": {
+      "type": "number",
+      "title": "Gross monthly salary",
+      "x-class": "md6"
     },
     "startDate": {
       "type": "string",
       "title": "Start Date",
-      "format": "date"
+      "format": "date",
+      "x-class": "md6"
     },
-    "probationDuration": {
+    "probationaryPeriod": {
       "type": "string",
-      "title": "Duration of Probation (Leave blank if not probationary)"
+      "title": "Duration of Probation",
+      "x-class": "md6",
+      "description": "Leave blank if not probationary"
     },
     "lockinDuration": {
       "type": "string",
-      "title": "Duration of Lock-in (Leave blank if no lock-in period)"
+      "title": "Duration of Lock-in (Leave blank if no lock-in period)",
+      "x-class": "md6"
     },
     "placeOfWork": {
       "type": "string",
-      "title": "Place of Work (Leave blank if same as employer office)"
+      "title": "Place of Work (Leave blank if same as employer office)",
+      "x-class": "md6"
     },
-    "isExclusive": {
-      "type": "array",
-      "title": "Exclusive"
-    },
-    "isConfidential": {
+    "nonCompete": {
       "type": "string",
-      "title": "Duration of non-compete (Leave blank if no non-compete)"
+      "title": "Number of years of non-compete (Leave blank if no non-compete)",
+      "x-class": "md6"
     },
     "terminationNotice": {
       "type": "string",
-      "title": "Period to notify termination"
+      "title": "Period to notify termination",
+      "x-class": "md6"
+    },
+    "isExclusive": {
+      "type": "boolean",
+      "title": "Exclusive"
+    },
+    "isConfidential": {
+      "type": "boolean",
+      "title": "Confidential Employee"
     },
     "duties": {
       "type": "array",
@@ -99,9 +126,10 @@
         }
       }
     },
-    "salary": {
-      "type": "number",
-      "title": "Gross monthly salary"
+    "executionDate": {
+      "type": "string",
+      "title": "Date of Execution",
+      "format": "date"
     }
   }
 }
