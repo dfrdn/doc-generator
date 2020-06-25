@@ -15,10 +15,9 @@ import Docxtemplater from 'docxtemplater'
 import PizZip from 'pizzip'
 import PizZipUtils from 'pizzip/utils/index.js'
 import { saveAs } from 'file-saver'
-import * as firebase from 'firebase/app'
-import 'firebase/storage'
 import expressions from 'angular-expressions'
 import merge from 'lodash/merge'
+import { storage } from '@/firebaseInit'
 
 expressions.filters.lower = (input: string) => {
   if (!input) {
@@ -49,8 +48,6 @@ function angularParser(tag: string) {
       for (let i = 0, len = num + 1; i < len; i++) {
         obj = merge(obj, scopeList[i])
       }
-      console.log('scope: ' + JSON.stringify(scope))
-      console.log('context: ' + JSON.stringify(context))
       return expr(scope, obj)
     }
   }
@@ -84,7 +81,6 @@ export default Vue.extend({
   },
   methods: {
     renderDoc() {
-      const storage = firebase.storage()
       const storageRef = storage.ref(this.template)
       let doc
 
@@ -120,7 +116,9 @@ export default Vue.extend({
         saveAs(out, 'output.docx')
       }
 
-      storageRef.getDownloadURL().then(url => loadFile(url, onSuccess, onError))
+      storageRef
+        .getDownloadURL()
+        .then((url: string) => loadFile(url, onSuccess, onError))
     }
   }
 })
