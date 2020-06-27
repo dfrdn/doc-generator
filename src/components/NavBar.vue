@@ -25,22 +25,11 @@
 import Vue from 'vue'
 import { db } from '@/firebaseInit'
 
-db.collection('documentTypes')
-  .get()
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  .then((q: any) => {
-    console.log(q)
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    q.forEach((doc: any) => {
-      console.log(doc.data().name)
-    })
-  })
-
 export default Vue.extend({
   name: 'NavBar',
   data: () => ({
     loading: false,
-    items: [],
+    items: new Array<string>(),
     model: null,
     search: null
   }),
@@ -49,12 +38,13 @@ export default Vue.extend({
       if (this.items.length > 0) return
       this.loading = true
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       db.collection('documentTypes')
         .get()
-        .then((q: any) => {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          this.items = q.docs.map((doc: any) => doc.data().name)
+        .then((q: firebase.firestore.QuerySnapshot) => {
+          this.items = q.docs.map(
+            (doc: firebase.firestore.DocumentSnapshot) => doc.data()?.name
+          )
+          console.log(this.items)
         })
         .finally(() => (this.loading = false))
     }

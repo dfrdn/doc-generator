@@ -12,11 +12,19 @@
 
 <script>
 import NavBar from '@/components/NavBar.vue'
+import router from './router'
+
+document.title = 'MF Document Generator'
 
 export default {
   name: 'App',
   components: {
     NavBar
+  },
+  watch: {
+    $route(to, from) {
+      document.title = to.meta.title || 'Document Generator'
+    }
   }
 }
 </script>

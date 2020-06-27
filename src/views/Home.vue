@@ -2,7 +2,7 @@
   <div>
     <v-container class="fill-height" fluid>
       <v-row align="center" justify="center">
-        <v-col cols="6" class="pa-6 ma-2">
+        <v-col lg="6" sm="10" class="pa-6 ma-2">
           <Form />
         </v-col>
       </v-row>

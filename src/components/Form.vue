@@ -5,7 +5,6 @@
       <v-jsf v-model="model" :schema="schema" :options="options" />
       <GenerateButton template="employmentAgreement.docx" :info="model" />
     </v-form>
-    {{ model }}
   </div>
 </template>
 
@@ -25,7 +24,7 @@ export default Vue.extend({
     VJsf,
     GenerateButton
   },
-  data() {
+  data: () => {
     return {
       model,
       schema,

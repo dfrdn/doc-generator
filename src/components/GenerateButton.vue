@@ -113,7 +113,12 @@ export default Vue.extend({
           mimeType:
             'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
         }) //Output the document using Data-URI
-        saveAs(out, 'output.docx')
+        const documentTitle =
+          this.info.employeeName +
+          ' - ' +
+          this.info.employerName +
+          ' | Employment Agreement.docx'
+        saveAs(out, documentTitle)
       }
 
       storageRef
