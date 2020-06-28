@@ -5,7 +5,7 @@
       <router-view></router-view>
     </v-main>
     <v-footer app>
-      <span>&copy; 2020</span>
+      <span>&copy; 2020 Mandocdoc & Fordan.</span>
     </v-footer>
   </v-app>
 </template>
