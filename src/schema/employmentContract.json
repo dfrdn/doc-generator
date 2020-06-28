@@ -96,7 +96,7 @@
     },
     "duties": {
       "type": "array",
-      "title": "Functions, duties, and Responsibilities of the Employee",
+      "title": "Functions, Duties, and Responsibilities of the Employee",
       "x-itemTitle": "duty",
       "items": {
         "type": "object",

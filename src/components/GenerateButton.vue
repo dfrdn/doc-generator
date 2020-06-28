@@ -69,19 +69,9 @@ function loadFile(
 
 export default Vue.extend({
   name: 'GenerateButton',
-  props: {
-    template: {
-      type: String,
-      required: true
-    },
-    info: {
-      type: Object,
-      required: true
-    }
-  },
   methods: {
     renderDoc() {
-      const storageRef = storage.ref(this.template)
+      const storageRef = storage.ref(this.$store.getters.getDocument)
       let doc
 
       const onError = (e: Error) => {
@@ -91,7 +81,7 @@ export default Vue.extend({
       const onSuccess = (c: string) => {
         const zip = new PizZip(c)
         doc = new Docxtemplater(zip, { parser: angularParser })
-        doc.setData(this.info)
+        doc.setData({})
         try {
           doc.render()
         } catch (error) {
@@ -113,11 +103,7 @@ export default Vue.extend({
           mimeType:
             'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
         }) //Output the document using Data-URI
-        const documentTitle =
-          this.info.employeeName +
-          ' - ' +
-          this.info.employerName +
-          ' | Employment Agreement.docx'
+        const documentTitle = ' | Employment Agreement.docx'
         saveAs(out, documentTitle)
       }
 

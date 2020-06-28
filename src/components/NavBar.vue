@@ -7,13 +7,15 @@
       <v-autocomplete
         v-model="select"
         :loading="loading"
-        :items="items"
+        :items="documents"
         :search-input.sync="search"
+        item-text="name"
         cache-items
         class="mx-4"
         flat
         hide-no-data
         hide-details
+        return-object
         label="Search document type..."
         solo
       ></v-autocomplete>
@@ -23,30 +25,39 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { db } from '@/firebaseInit'
 
 export default Vue.extend({
   name: 'NavBar',
   data: () => ({
     loading: false,
-    items: new Array<string>(),
-    model: null,
     search: null
   }),
+  computed: {
+    documents: {
+      get() {
+        return this.$store.getters.documents
+      },
+      set(value) {
+        console.log('setting documents to: ' + value)
+      }
+    },
+    select: {
+      get() {
+        return this.$store.state.document
+      },
+      set(value) {
+        console.log(value)
+        this.$store.dispatch('setDocument', value).then(() => {
+          this.$router.push('/docgen')
+        })
+      }
+    }
+  },
   watch: {
     search(val) {
-      if (this.items.length > 0) return
-      this.loading = true
-
-      db.collection('documentTypes')
-        .get()
-        .then((q: firebase.firestore.QuerySnapshot) => {
-          this.items = q.docs.map(
-            (doc: firebase.firestore.DocumentSnapshot) => doc.data()?.name
-          )
-          console.log(this.items)
-        })
-        .finally(() => (this.loading = false))
+      if (this.$store.state.documents.length > 0) return
+      this.loading = this.$store.state.status == 'loading'
+      this.$store.dispatch('searchAction')
     }
   }
 })
