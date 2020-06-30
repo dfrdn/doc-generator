@@ -4,9 +4,10 @@
       {{ documentType }}
     </h1>
     <v-form ref="form" v-model="valid">
-      <v-jsf v-model="model" :schema="schema" :options="options" />
+      <v-jsf v-model="documentFields" :schema="schema" :options="options" />
       <GenerateButton />
     </v-form>
+    <pre>{{ documentFields }}</pre>
   </div>
 </template>
 
@@ -16,9 +17,8 @@ import VJsf from '@koumoul/vjsf'
 import '@koumoul/vjsf/dist/main.css'
 import schema from '@/schema/employmentContract.json'
 import GenerateButton from '@/components/GenerateButton.vue'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
-const model = {}
 const options = {}
 
 export default Vue.extend({
@@ -29,14 +29,21 @@ export default Vue.extend({
   },
   data: () => {
     return {
-      model,
       schema,
       options,
       valid: null
     }
   },
   computed: {
-    ...mapGetters(['documentType'])
+    ...mapGetters(['documentType', 'documentFields']),
+    documentFields: {
+      get() {
+        return this.$store.getters.documentFields
+      },
+      set(val) {
+        this.$store.dispatch('setDocumentFields', val)
+      }
+    }
   }
 })
 </script>

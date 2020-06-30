@@ -6,13 +6,13 @@ import { db, storage } from '@/firebaseInit'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  strict: true,
+  // strict: true,
   state: {
     documents: [],
     document: {
       name: null,
       url: null,
-      fields: null
+      fields: {}
     },
     error: null,
     status: null
@@ -20,6 +20,9 @@ export default new Vuex.Store({
   getters: {
     documents(state) {
       return state.documents
+    },
+    documentFields(state) {
+      return state.document.fields
     },
     documentType(state) {
       return state.document.name
@@ -33,7 +36,7 @@ export default new Vuex.Store({
       state.documents = payload
     },
     setDocument(state, payload) {
-      state.document = payload
+      state.document = { ...state.document, ...payload }
     },
     setDocumentType(state, payload) {
       state.document.name = payload
@@ -61,8 +64,14 @@ export default new Vuex.Store({
         })
         .finally(commit('setStatus', 'success'))
     },
+    setDocuments({ commit }, payload) {
+      commit('setDocuments', payload)
+    },
     setDocument({ commit }, payload) {
       commit('setDocument', payload)
+    },
+    setDocumentFields({ commit }, payload) {
+      commit('setDocumentFields', payload)
     }
   },
   modules: {}

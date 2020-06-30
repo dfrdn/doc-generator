@@ -2,7 +2,9 @@
   <div>
     <v-app-bar app>
       <v-toolbar-title class="title mr-6 hidden-sm-and-down"
-        >M&F</v-toolbar-title
+        ><v-btn retain-focus-on-click x-large to="/" text
+          >M&F</v-btn
+        ></v-toolbar-title
       >
       <v-autocomplete
         v-model="select"
@@ -38,7 +40,7 @@ export default Vue.extend({
         return this.$store.getters.documents
       },
       set(value) {
-        console.log('setting documents to: ' + value)
+        this.$store.dispatch('setDocuments', value)
       }
     },
     select: {
@@ -46,7 +48,6 @@ export default Vue.extend({
         return this.$store.state.document
       },
       set(value) {
-        console.log(value)
         this.$store.dispatch('setDocument', value).then(() => {
           this.$router.push('/docgen')
         })

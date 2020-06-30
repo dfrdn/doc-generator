@@ -18,6 +18,7 @@ import { saveAs } from 'file-saver'
 import expressions from 'angular-expressions'
 import merge from 'lodash/merge'
 import { storage } from '@/firebaseInit'
+import { mapGetters } from 'vuex'
 
 expressions.filters.lower = (input: string) => {
   if (!input) {
@@ -69,9 +70,13 @@ function loadFile(
 
 export default Vue.extend({
   name: 'GenerateButton',
+  computed: {
+    ...mapGetters(['documentURL', 'documentFields'])
+  },
   methods: {
     renderDoc() {
-      const storageRef = storage.ref(this.$store.getters.getDocument)
+      const URL: string = this.documentURL
+      const storageRef = storage.ref(URL)
       let doc
 
       const onError = (e: Error) => {
@@ -81,7 +86,7 @@ export default Vue.extend({
       const onSuccess = (c: string) => {
         const zip = new PizZip(c)
         doc = new Docxtemplater(zip, { parser: angularParser })
-        doc.setData({})
+        doc.setData(this.documentFields)
         try {
           doc.render()
         } catch (error) {
@@ -103,7 +108,11 @@ export default Vue.extend({
           mimeType:
             'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
         }) //Output the document using Data-URI
-        const documentTitle = ' | Employment Agreement.docx'
+        const documentTitle =
+          this.documentFields['employeeName'] +
+          ' - ' +
+          this.documentFields['employerName'] +
+          ' | Employment Agreement.docx'
         saveAs(out, documentTitle)
       }
 
