@@ -19,7 +19,7 @@ const routes: Array<RouteConfig> = [
     name: 'About'
   },
   {
-    path: '/docgen',
+    path: '/docgen/:id',
     name: 'Generator',
     component: Generator
   }

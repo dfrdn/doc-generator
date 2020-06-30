@@ -49,7 +49,7 @@ export default Vue.extend({
       },
       set(value) {
         this.$store.dispatch('setDocument', value).then(() => {
-          this.$router.push('/docgen')
+          this.$router.push('/docgen/' + this.$store.getters.documentType)
         })
       }
     }

@@ -15,7 +15,8 @@ export default new Vuex.Store({
       fields: {}
     },
     error: null,
-    status: null
+    status: null,
+    links: ['Document Generator', 'Matter Tracker']
   },
   getters: {
     documents(state) {

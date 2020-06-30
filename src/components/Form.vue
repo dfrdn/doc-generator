@@ -7,7 +7,6 @@
       <v-jsf v-model="documentFields" :schema="schema" :options="options" />
       <GenerateButton :valid="valid" />
     </v-form>
-    <pre>{{ documentFields }}</pre>
   </div>
 </template>
 
