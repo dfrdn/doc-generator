@@ -5,7 +5,7 @@
     </h1>
     <v-form ref="form" v-model="valid">
       <v-jsf v-model="documentFields" :schema="schema" :options="options" />
-      <GenerateButton />
+      <GenerateButton :valid="valid" />
     </v-form>
     <pre>{{ documentFields }}</pre>
   </div>
@@ -31,7 +31,7 @@ export default Vue.extend({
     return {
       schema,
       options,
-      valid: null
+      valid: false
     }
   },
   computed: {

@@ -2,7 +2,7 @@
   <div>
     <v-layout row class="mt-2">
       <v-spacer></v-spacer>
-      <v-btn class="ma-2" @click="renderDoc">
+      <v-btn class="ma-2" @click="renderDoc" :disabled="!valid">
         <v-icon left>mdi-send</v-icon>Generate
       </v-btn>
     </v-layout>
@@ -70,6 +70,9 @@ function loadFile(
 
 export default Vue.extend({
   name: 'GenerateButton',
+  props: {
+    valid: Boolean
+  },
   computed: {
     ...mapGetters(['documentURL', 'documentFields'])
   },
@@ -119,6 +122,7 @@ export default Vue.extend({
       storageRef
         .getDownloadURL()
         .then((url: string) => loadFile(url, onSuccess, onError))
+      storageRef.getDownloadURL.th
     }
   }
 })
