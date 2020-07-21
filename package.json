@@ -18,7 +18,7 @@
     "docxtemplater": "^3.17.9",
     "file-saver": "^2.0.2",
     "firebase": "^7.15.4",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "pizzip": "^3.0.6",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
