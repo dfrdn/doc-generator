@@ -55,13 +55,3 @@ export function loadFile(
     onSuccess(c)
   })
 }
-
-export function getTags(content: string) {
-  const zip = new PizZip(content)
-  const inspector = InspectModule()
-  const doc = new Docxtemplater(zip, {
-    parser: angularParser,
-    modules: [inspector]
-  })
-  return inspector.getAllTags()
-}
