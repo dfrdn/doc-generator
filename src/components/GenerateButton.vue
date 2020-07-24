@@ -19,54 +19,7 @@ import expressions from 'angular-expressions'
 import merge from 'lodash/merge'
 import { storage } from '@/firebaseInit'
 import { mapGetters } from 'vuex'
-
-expressions.filters.lower = (input: string) => {
-  if (!input) {
-    return input
-  }
-  return input.toLowerCase()
-}
-
-function angularParser(tag: string) {
-  if (tag === '.') {
-    return {
-      get: function(s: string) {
-        return s
-      }
-    }
-  }
-  const expr = expressions.compile(
-    tag.replace(/(’|‘)/g, "'").replace(/(“|”)/g, '"')
-  )
-  return {
-    get: function(
-      scope: Record<string, never>,
-      context: Record<string, never>
-    ) {
-      let obj = {}
-      const scopeList = context['scopeList']
-      const num = context['num']
-      for (let i = 0, len = num + 1; i < len; i++) {
-        obj = merge(obj, scopeList[i])
-      }
-      return expr(scope, obj)
-    }
-  }
-}
-
-function loadFile(
-  url: string,
-  onSuccess: (c: string) => void,
-  onError: (e: Error) => void
-) {
-  PizZipUtils.getBinaryContent(url, (e: Error, c: string) => {
-    if (e) {
-      console.log(e)
-      onError(e)
-    }
-    onSuccess(c)
-  })
-}
+import { angularParser, loadFile, getTags } from '@/templateLoader'
 
 export default Vue.extend({
   name: 'GenerateButton',
@@ -122,7 +75,6 @@ export default Vue.extend({
       storageRef
         .getDownloadURL()
         .then((url: string) => loadFile(url, onSuccess, onError))
-      storageRef.getDownloadURL.th
     }
   }
 })

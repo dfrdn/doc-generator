@@ -20,6 +20,11 @@ export default Vue.extend({
   name: 'Home',
   components: {
     CreateMatter
+  },
+  mounted() {
+    this.$store.dispatch('loadDocuments').then(() => {
+      console.log(this.$store.getters.documents)
+    })
   }
 })
 </script>

@@ -6,6 +6,9 @@
     <v-form ref="form" v-model="valid">
       <v-jsf v-model="documentFields" :schema="schema" :options="options" />
       <GenerateButton :valid="valid" />
+      <!-- <v-btn class="ma-2" @click="renderDoc" :disabled="!valid">
+        <v-icon left>mdi-send</v-icon>Generate
+      </v-btn> -->
     </v-form>
   </div>
 </template>

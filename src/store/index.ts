@@ -53,17 +53,17 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    searchAction({ commit }) {
-      commit('setStatus', 'loading')
+    loadDocuments({ commit }) {
       db.collection('documentTypes')
         .get()
         .then((q: firebase.firestore.QuerySnapshot) => {
           commit(
             'setDocuments',
-            q.docs.map(doc => doc.data())
+            q.docs.map(doc => {
+              return { ...{ id: doc.id }, ...doc.data() }
+            })
           )
         })
-        .finally(commit('setStatus', 'success'))
     },
     setDocuments({ commit }, payload) {
       commit('setDocuments', payload)

@@ -53,13 +53,6 @@ export default Vue.extend({
         })
       }
     }
-  },
-  watch: {
-    search(val) {
-      if (this.$store.state.documents.length > 0) return
-      this.loading = this.$store.state.status == 'loading'
-      this.$store.dispatch('searchAction')
-    }
   }
 })
 </script>
