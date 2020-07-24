@@ -95,9 +95,9 @@ export default Vue.extend({
                 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
             }) //Output the document using Data-URI
             const documentTitle =
-              this.documentFields['employeeName'] +
+              this.$store.getters.documentFields['employeeName'] +
               ' - ' +
-              this.documentFields['employerName'] +
+              this.$store.getters.documentFields['employerName'] +
               ' | Employment Agreement.docx'
             saveAs(out, documentTitle)
           },

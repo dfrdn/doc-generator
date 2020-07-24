@@ -4,8 +4,7 @@
       <v-row align="center" justify="center">
         <v-col lg="6" sm="10" class="pa-6 ma-2">
           <h1 class="text-h3">Home</h1>
-          {{ this.$store.getters.documents }}
-          <create-matter />
+          <upload-template></upload-template>
         </v-col>
       </v-row>
     </v-container>
@@ -14,17 +13,12 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import CreateMatter from '@/components/CreateMatter.vue'
+import UploadTemplate from '@/components/UploadTemplate.vue'
 
 export default Vue.extend({
   name: 'Home',
   components: {
-    CreateMatter
-  },
-  mounted() {
-    this.$store.dispatch('loadDocuments').then(() => {
-      console.log(this.$store.getters.documents)
-    })
+    UploadTemplate
   }
 })
 </script>

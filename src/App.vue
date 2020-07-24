@@ -25,6 +25,11 @@ export default {
     $route(to, from) {
       document.title = to.meta.title || 'Document Generator'
     }
+  },
+  mounted() {
+    this.$store.dispatch('loadDocuments').then(() => {
+      console.log(this.$store.getters.documents)
+    })
   }
 }
 </script>
