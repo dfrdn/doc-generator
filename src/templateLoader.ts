@@ -6,7 +6,6 @@ import { saveAs } from 'file-saver'
 import expressions from 'angular-expressions'
 import merge from 'lodash/merge'
 import { storage } from '@/firebaseInit'
-import { mapGetters } from 'vuex'
 
 expressions.filters.lower = (input: string) => {
   if (!input) {
@@ -54,4 +53,10 @@ export function loadFile(
     }
     onSuccess(c)
   })
+}
+
+export function generateSchema(tags: object) {
+  const schema = {
+    type: 'object'
+  }
 }

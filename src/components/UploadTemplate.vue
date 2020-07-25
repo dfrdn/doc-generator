@@ -6,7 +6,10 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { loadFile } from '@/templateLoader'
+import { angularParser } from '@/templateLoader'
+import InspectModule from 'docxtemplater/js/inspect-module.js'
+import Docxtemplater from 'docxtemplater'
+import PizZip from 'pizzip'
 
 export default Vue.extend({
   name: 'UploadTemplate',
@@ -18,11 +21,21 @@ export default Vue.extend({
     }
   },
   methods: {
-    onFilePicked(file: File[]) {
+    onFilePicked(file: Blob) {
       const reader = new FileReader()
       reader.readAsBinaryString(file)
       reader.onload = () => {
-        console.log(reader.result)
+        if (typeof reader.result === 'string') {
+          const content = reader.result
+          const zip = new PizZip(content)
+          const inspector = InspectModule()
+          const doc = new Docxtemplater(zip, {
+            parser: angularParser,
+            modules: [inspector]
+          })
+
+          console.log(inspector.getAllTags())
+        }
       }
     }
   }
