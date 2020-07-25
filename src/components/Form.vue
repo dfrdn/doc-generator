@@ -2,16 +2,22 @@
   <div>
     <v-row class="mt-2">
       <v-col>
-        <h1 class="mb-10 font-weight-light text-center">{{ documentType }}</h1>
+        <h1 class="mb-10 font-weight-light text-center">
+          {{ documentType }}
+        </h1>
         <v-form ref="form" v-model="valid">
           <v-row>
-            <v-jsf v-model="documentFields" :schema="schema" :options="options" />
-            <v-spacer></v-spacer>
-            <v-btn class="ma-2" @click="renderDoc" :disabled="!valid">
-              <v-icon>mdi-send</v-icon>Generate
-            </v-btn>
+            <v-jsf
+              v-model="documentFields"
+              :schema="schema"
+              :options="options"
+            />
           </v-row>
         </v-form>
+        <v-spacer></v-spacer>
+        <v-btn class="ma-2" @click="renderDoc" :disabled="!valid">
+          <v-icon>mdi-send</v-icon>Generate
+        </v-btn>
       </v-col>
     </v-row>
   </div>
@@ -36,7 +42,6 @@ export default Vue.extend({
   name: 'Form',
   components: {
     VJsf
-    // GenerateButton
   },
   data: () => {
     return {

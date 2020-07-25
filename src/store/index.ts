@@ -16,7 +16,8 @@ export default new Vuex.Store({
     },
     error: null,
     status: null,
-    links: ['Document Generator', 'Matter Tracker']
+    links: ['Document Generator', 'Matter Tracker'],
+    isAuthenticated: false
   },
   getters: {
     documents(state) {
@@ -30,6 +31,9 @@ export default new Vuex.Store({
     },
     documentURL(state) {
       return state.document.url
+    },
+    isAuthenticated(state) {
+      return state.isAuthenticated
     }
   },
   mutations: {

@@ -57,6 +57,8 @@ export function loadFile(
 
 export function generateSchema(tags: object) {
   const schema = {
-    type: 'object'
+    type: 'object',
+    required: [],
+    properties: {}
   }
 }

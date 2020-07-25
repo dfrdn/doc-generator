@@ -12,7 +12,6 @@
 
 <script>
 import NavBar from '@/components/NavBar.vue'
-import router from './router'
 
 document.title = 'MF Document Generator'
 

@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-app-bar app>
-      <v-toolbar-title class="title mr-6 hidden-sm-and-down"
+      <v-toolbar-title class="title mr-6"
         ><v-btn retain-focus-on-click x-large to="/" text
           >M&F</v-btn
         ></v-toolbar-title
@@ -20,6 +20,7 @@
         return-object
         label="Search document type..."
         solo
+        v-if="this.$store.getters.isAuthenticated"
       ></v-autocomplete>
     </v-app-bar>
   </div>
