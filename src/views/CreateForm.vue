@@ -2,7 +2,10 @@
   <div>
     <v-container>
       <v-row>
-        <v-col></v-col>
+        <v-col>
+          <upload-template />
+          <form-preview />
+        </v-col>
       </v-row>
     </v-container>
   </div>
@@ -10,11 +13,13 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import UploadTemplate from '@/components/UploadTemplate.vue'
+import FormPreview from '@/components/FormPreview.vue'
 
 export default Vue.extend({
-  name: 'CreateForm'
+  name: 'CreateForm',
+  components: { UploadTemplate, FormPreview }
 })
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

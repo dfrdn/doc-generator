@@ -17,7 +17,8 @@ export default new Vuex.Store({
     error: null,
     status: null,
     links: ['Document Generator', 'Matter Tracker'],
-    isAuthenticated: false
+    isAuthenticated: true,
+    schema: {}
   },
   getters: {
     documents(state) {
@@ -34,6 +35,9 @@ export default new Vuex.Store({
     },
     isAuthenticated(state) {
       return state.isAuthenticated
+    },
+    schema(state) {
+      return state.schema
     }
   },
   mutations: {
@@ -54,6 +58,9 @@ export default new Vuex.Store({
     },
     setStatus(state, payload) {
       state.status = payload
+    },
+    setSchema(state, payload) {
+      state.schema = payload
     }
   },
   actions: {
@@ -77,6 +84,9 @@ export default new Vuex.Store({
     },
     setDocumentFields({ commit }, payload) {
       commit('setDocumentFields', payload)
+    },
+    setSchema({ commit }, payload) {
+      commit('setSchema', payload)
     }
   },
   modules: {}

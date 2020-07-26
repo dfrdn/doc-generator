@@ -4,8 +4,8 @@ import PizZipUtils from 'pizzip/utils/index.js'
 import InspectModule from 'docxtemplater/js/inspect-module.js'
 import { saveAs } from 'file-saver'
 import expressions from 'angular-expressions'
-import merge from 'lodash/merge'
 import { storage } from '@/firebaseInit'
+import _ from 'lodash'
 
 expressions.filters.lower = (input: string) => {
   if (!input) {
@@ -34,7 +34,7 @@ export function angularParser(tag: string) {
       const scopeList = context['scopeList']
       const num = context['num']
       for (let i = 0, len = num + 1; i < len; i++) {
-        obj = merge(obj, scopeList[i])
+        obj = _.merge(obj, scopeList[i])
       }
       return expr(scope, obj)
     }
@@ -55,10 +55,25 @@ export function loadFile(
   })
 }
 
-export function generateSchema(tags: object) {
+export function generateSchema(tags: Record<string, any>) {
+  const toProperties = Object.fromEntries(
+    Object.keys(tags).map(k => [
+      k,
+      {
+        type: _.startsWith(_.snakeCase(k), 'is_') ? 'boolean' : 'string',
+        title: _.startCase(k),
+        format: _.endsWith(k, 'Date') ? 'date' : null
+      }
+    ])
+  )
+
   const schema = {
     type: 'object',
     required: [],
-    properties: {}
+    properties: toProperties
   }
+
+  console.log(schema)
+
+  return schema
 }
