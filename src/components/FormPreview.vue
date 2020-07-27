@@ -7,14 +7,9 @@
             <v-toolbar-title>Form Preview</v-toolbar-title>
             <v-spacer></v-spacer>
           </v-toolbar>
-
           <v-card-text>
             <v-form ref="form" v-model="valid">
-              <v-jsf
-                v-model="documentFields"
-                :schema="schema"
-                :options="options"
-              />
+              <v-jsf v-model="model" :schema="schema" :options="options" />
             </v-form>
           </v-card-text>
         </v-card>
@@ -30,6 +25,7 @@ import '@koumoul/vjsf/dist/main.css'
 import { mapGetters, mapActions } from 'vuex'
 
 const options = {}
+const model = {}
 
 export default Vue.extend({
   name: 'FormPreview',
@@ -38,12 +34,13 @@ export default Vue.extend({
   },
   data: () => {
     return {
+      model,
       options,
       valid: false
     }
   },
   computed: {
-    ...mapGetters(['documentURL', 'documentType', 'documentFields', 'schema'])
+    ...mapGetters(['documentURL', 'documentType', 'schema'])
   }
 })
 </script>

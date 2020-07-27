@@ -2,10 +2,17 @@
   <div>
     <v-container>
       <v-row>
-        <v-col>
+        <v-col cols="12">
           <upload-template />
-          <form-preview />
         </v-col>
+        <v-row>
+          <v-col>
+            <edit-schema />
+          </v-col>
+          <v-col>
+            <form-preview />
+          </v-col>
+        </v-row>
       </v-row>
     </v-container>
   </div>
@@ -15,10 +22,11 @@
 import Vue from 'vue'
 import UploadTemplate from '@/components/UploadTemplate.vue'
 import FormPreview from '@/components/FormPreview.vue'
+import EditSchema from '@/components/EditSchema.vue'
 
 export default Vue.extend({
   name: 'CreateForm',
-  components: { UploadTemplate, FormPreview }
+  components: { UploadTemplate, FormPreview, EditSchema }
 })
 </script>
 

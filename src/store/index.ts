@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import firebase from 'firebase/app'
-import { db, storage } from '@/firebaseInit'
+import { db, storage, auth } from '@/firebaseInit'
 
 Vue.use(Vuex)
 
@@ -17,8 +17,12 @@ export default new Vuex.Store({
     error: null,
     status: null,
     links: ['Document Generator', 'Matter Tracker'],
-    isAuthenticated: true,
-    schema: {}
+    user: null,
+    schema: {
+      type: 'object',
+      required: [],
+      properties: {}
+    }
   },
   getters: {
     documents(state) {
@@ -34,10 +38,13 @@ export default new Vuex.Store({
       return state.document.url
     },
     isAuthenticated(state) {
-      return state.isAuthenticated
+      return !(state.user === null)
     },
     schema(state) {
       return state.schema
+    },
+    fields(state) {
+      return state.schema.properties
     }
   },
   mutations: {
@@ -61,6 +68,12 @@ export default new Vuex.Store({
     },
     setSchema(state, payload) {
       state.schema = payload
+    },
+    setFieldType(state, payload) {
+      state.schema.properties = payload
+    },
+    setUser(state, payload) {
+      state.user = payload
     }
   },
   actions: {
@@ -87,6 +100,9 @@ export default new Vuex.Store({
     },
     setSchema({ commit }, payload) {
       commit('setSchema', payload)
+    },
+    loginUser({ commit }, payload) {
+      commit('setUser', payload)
     }
   },
   modules: {}

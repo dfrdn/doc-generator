@@ -6,6 +6,7 @@ import { saveAs } from 'file-saver'
 import expressions from 'angular-expressions'
 import { storage } from '@/firebaseInit'
 import _ from 'lodash'
+import pluralize from 'pluralize'
 
 expressions.filters.lower = (input: string) => {
   if (!input) {
@@ -56,21 +57,45 @@ export function loadFile(
 }
 
 export function generateSchema(tags: Record<string, any>) {
-  const toProperties = Object.fromEntries(
-    Object.keys(tags).map(k => [
-      k,
-      {
-        type: _.startsWith(_.snakeCase(k), 'is_') ? 'boolean' : 'string',
-        title: _.startCase(k),
-        format: _.endsWith(k, 'Date') ? 'date' : null
+  const properties = Object.fromEntries(
+    Object.keys(tags).map(k => {
+      const v: { [k: string]: any } = {}
+      v.type = _.startsWith(_.snakeCase(k), 'is_')
+        ? 'boolean'
+        : pluralize.isPlural(_.last(_.words(k)) as string)
+        ? 'array'
+        : 'string'
+      v.title = _.startCase(k)
+
+      if (_.endsWith(k, 'Date')) {
+        v.format = 'date'
       }
-    ])
+
+      if (v.type === 'array') {
+        const key = pluralize.singular(_.last(_.words(k)) as string)
+
+        v['x-itemTitle'] = key
+        v.items = {
+          type: 'object',
+          required: [key],
+          properties: {
+            key: {
+              type: 'string',
+              title: `Inser ${key}...`,
+              'x-display': 'textare'
+            }
+          }
+        }
+      }
+
+      return [k, v]
+    })
   )
 
   const schema = {
     type: 'object',
     required: [],
-    properties: toProperties
+    properties: properties
   }
 
   console.log(schema)

@@ -37,6 +37,7 @@ export default Vue.extend({
           })
 
           const x = inspector.getAllTags()
+          console.log(inspector.getAllStructuredTags())
           this.$store.dispatch('setSchema', generateSchema(x))
         }
       }
