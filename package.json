@@ -15,7 +15,7 @@
     "@types/pizzip": "^3.0.1",
     "@types/pluralize": "0.0.29",
     "angular-expressions": "^1.1.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "docxtemplater": "^3.17.9",
     "file-saver": "^2.0.2",
