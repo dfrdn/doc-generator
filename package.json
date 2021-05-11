@@ -20,7 +20,7 @@
     "docxtemplater": "^3.17.9",
     "file-saver": "^2.0.2",
     "firebase": "^7.15.4",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "pizzip": "^3.0.6",
     "pluralize": "^8.0.0",
     "vue": "^2.6.11",
