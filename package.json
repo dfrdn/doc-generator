@@ -17,7 +17,7 @@
     "angular-expressions": "^1.1.1",
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
-    "docxtemplater": "^3.17.9",
+    "docxtemplater": "^3.31.5",
     "file-saver": "^2.0.2",
     "firebase": "^7.15.4",
     "lodash": "^4.17.19",
